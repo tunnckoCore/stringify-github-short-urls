@@ -71,7 +71,7 @@ module.exports = function stringifyGithubShortUrls(urls, opts) {
   opts = opts || {}
   urls = !Array.isArray(urls) ? [urls] : urls;
 
-  var filter = opts.filter ? filter : false;
+  var filter = opts.filter ? require('filter-object') : false;
 
   var res = urls.map(function(ele) {
     if (filter) {
