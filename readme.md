@@ -31,7 +31,7 @@ npm test
 ```js
 var stringifyGithubShortUrls = require('stringify-github-short-urls');
 
-var authors = [{
+var urls = [{
   user: 'tunnckoCore',
   username: 'tunnckoCore',
   org: 'tunnckoCore',
@@ -58,7 +58,7 @@ var authors = [{
 }];
 
 // default separator is ', '
-stringifyGithubShortUrls(authors, {sep: '\n'});
+stringifyGithubShortUrls(urls, {sep: '\n'});
 
 //=> results in:
 // tunnckoCore/glob2fp#master
@@ -70,10 +70,10 @@ stringifyGithubShortUrls(authors, {sep: '\n'});
 ### Filter with glob patterns
 
 ```js
-stringifyGithubShortUrls(authors, {filter: '{user,repo}'});
+stringifyGithubShortUrls(urls, {filter: '{user,repo}'});
 //=> tunnckoCore/glob2fp, jonschlinkert/template
 
-stringifyGithubShortUrls(authors, {filter: '{user,repo}', sep: '\n'});
+stringifyGithubShortUrls(urls, {filter: '{user,repo}', sep: '\n'});
 //=> results in:
 // tunnckoCore/glob2fp
 // jonschlinkert/template

@@ -18,7 +18,7 @@ var _NAME = 'stringify-github-short-urls:'
  * ```js
  * var stringifyGithubShortUrls = require('stringify-github-short-urls');
  *
- * var authors = [{
+ * var urls = [{
  *   user: 'tunnckoCore',
  *   username: 'tunnckoCore',
  *   org: 'tunnckoCore',
@@ -45,7 +45,7 @@ var _NAME = 'stringify-github-short-urls:'
  * }];
  *
  * // default separator is ', '
- * stringifyGithubShortUrls(authors, {sep: '\n'});
+ * stringifyGithubShortUrls(urls, {sep: '\n'});
  *
  * //=> results in
  * // tunnckoCore/glob2fp#master
