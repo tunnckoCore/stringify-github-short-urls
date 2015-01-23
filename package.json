@@ -1,6 +1,6 @@
 {
   "name": "stringify-github-short-urls",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Stringify an array or object of github shorthand url objects returned from `parse-github-short-url(s)`",
   "scripts": {
     "lint": "jshint index.js && jscs index.js --reporter inline",
