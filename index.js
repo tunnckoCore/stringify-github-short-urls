@@ -1,104 +1,58 @@
-/**
+/*!
  * stringify-github-short-urls <https://github.com/tunnckoCore/stringify-github-short-urls>
  *
- * Copyright (c) 2014-2015 Charlike Mike Reagent, contributors.
+ * Copyright (c) 2015-2016 Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)
  * Released under the MIT license.
  */
 
-'use strict';
+'use strict'
 
-var stringify = require('stringify-github-short-url');
-var _NAME = 'stringify-github-short-urls:'
+var isArray = require('isarray')
+var stringify = require('stringify-github-short-url')
 
 /**
- * > Stringify github shorthand url objects or array
+ * Stringify object or list of arguments to Github / npm shorthand.
  *
- * **Example:**
+ * **Example**
  *
  * ```js
- * var stringifyGithubShortUrls = require('stringify-github-short-urls');
+ * const gh = require('stringify-github-short-urls')
  *
- * var urls = [{
- *   user: 'tunnckoCore',
- *   username: 'tunnckoCore',
- *   org: 'tunnckoCore',
- *   organization: 'tunnckoCore',
- *   repo: 'glob2fp',
- *   repository: 'glob2fp',
- *   branch: 'master'
- * }, {
- *   user: 'jonschlinkert',
- *   username: 'jonschlinkert',
- *   org: 'jonschlinkert',
- *   organization: 'jonschlinkert',
- *   repo: 'template',
- *   repository: 'template',
- *   branch: 'feature'
- * }, {
- *   user: 'visionmedia',
- *   username: 'visionmedia',
- *   org: 'visionmedia',
- *   organization: 'visionmedia',
- *   repo: 'mocha',
- *   repository: 'mocha',
- *   branch: ''
- * }];
+ * // same as `stringify-github-short-url`
+ * gh('jonschlinkert', 'micromatch')          // => ['jonschlinkert/micromatch']
+ * gh('jonschlinkert', 'micromatch', 'dev')   // => ['jonschlinkert/micromatch#dev']
+ * gh('gulpjs', 'gulp', 'v3.8.1', true)       // => ['gulpjs/gulp@v3.8.1']
+ * gh({
+ *   owner: 'tunnckoCore',
+ *   name: 'parse-function'
+ * }) // => ['tunnckoCore/parse-function']
+ * gh({
+ *   user: 'assemble',
+ *   repo: 'assemble-core'
+ * }) // => ['assemble/assemble-core']
  *
- * // default separator is ', '
- * stringifyGithubShortUrls(urls, {sep: '\n'});
- *
- * //=> results in
- * // tunnckoCore/glob2fp#master
- * // jonschlinkert/template#feature
- * // visionmedia/mocha
+ * // or accept arrays of objects that are passed to `stringify-github-short-url`
+ * gh([
+ *   {owner: 'assemble', name: 'assemble-core'},
+ *   {owner: 'jonschlinkert', name: 'micromatch', branch: 'dev'}
+ * ]) // => ['assemble/assemble-core', 'jonschlinkert/micromatch#dev']
  * ```
  *
- * @name stringifyGithubShortUrls
- * @param  {Object|Array} `<urls>`
- * @param  {Object} `[opts]`
- * @return {String}
+ * @name  stringifyGithubShortUrls
+ * @param  {Array|String|Object} `<owner>` user or org string, or object, array of objects
+ * @param  {String} `[name]` repo name
+ * @param  {String} `[branch]` branch name
+ * @param  {String} `[npm]` pass `true` if you want to generate npm shorthand
+ * @return {String} generated shorthand
  * @api public
  */
-module.exports = function stringifyGithubShortUrls(urls, opts) {
-  if (!urls) {
-    throw new Error('%s should have at least 1 arguments', _NAME);
+module.exports = function stringifyGithubShortUrls (owner) {
+  if ((!isArray(owner) && typeof owner === 'object') || arguments.length > 1) {
+    return [stringify.apply(this, arguments)]
   }
+  var urls = isArray(owner) ? owner : [owner]
 
-  if (typeOf(urls) !== 'object' && typeOf(urls) !== 'array') {
-    throw new TypeError('%s expect `urls` be object or array', _NAME);
-  }
-
-  opts = opts || {}
-  urls = !Array.isArray(urls) ? [urls] : urls;
-
-  var filter = opts.filter ? require('filter-object') : false;
-
-  var res = urls.map(function(ele) {
-    if (filter) {
-      return stringify(filter(ele, opts.filter));
-    }
-    return stringify(ele);
-  });
-
-  return res.join(opts.sep || ', ');
-};
-
-
-/**
- * Get correct type of value
- *
- * @param  {*} `val`
- * @return {String}
- * @api private
- */
-function typeOf(val) {
-  if (typeof val !== 'object') {
-    return typeof val;
-  }
-
-  if (Array.isArray(val)) {
-    return 'array';
-  }
-
-  return {}.toString(val).slice(8, -1).toLowerCase();
+  return urls.map(function (val) {
+    return stringify(val)
+  })
 }

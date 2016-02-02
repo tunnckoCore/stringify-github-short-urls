@@ -1,55 +1,46 @@
 {
   "name": "stringify-github-short-urls",
   "version": "1.0.0",
-  "description": "Stringify an array or object of github shorthand url objects returned from `parse-github-short-url(s)`",
+  "description": "Stringify array of `parse-github-short-url` objects to shorthand.",
+  "repository": "tunnckoCore/stringify-github-short-urls",
+  "author": "Charlike Mike Reagent <@tunnckoCore> (http://www.tunnckocore.tk)",
+  "precommit.silent": true,
+  "main": "index.js",
+  "license": "MIT",
   "scripts": {
-    "lint": "jshint index.js && jscs index.js --reporter inline",
-    "test": "mocha",
-    "test-cov": "istanbul cover _mocha",
-    "test-travis": "istanbul cover _mocha --report lcovonly"
+    "test": "standard && node test.js"
   },
-  "author": {
-    "name": "Charlike Make Reagent",
-    "email": "mameto_100@mail.bg",
-    "url": "https://github.com/tunnckoCore"
+  "dependencies": {
+    "isarray": "^1.0.0",
+    "stringify-github-short-url": "^3.0.0"
   },
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/tunnckoCore/stringify-github-short-urls.git"
+  "devDependencies": {
+    "assertit": "^0.1.0",
+    "pre-commit": "*"
   },
+  "files": [
+    "index.js"
+  ],
   "keywords": [
     "branch",
     "gh",
+    "git",
     "github",
+    "name",
     "object",
-    "stringify",
+    "org",
+    "owner",
     "regex",
-    "regexps",
     "release",
     "repo",
-    "repo-util",
-    "repo-utils",
-    "repos",
     "short",
     "shorthand",
+    "string",
+    "stringify",
+    "stringify-github-short-urls",
     "tag",
-    "tags",
     "url",
-    "urls",
-    "util",
-    "utils"
-  ],
-  "license": {
-    "type": "MIT",
-    "url": "https://github.com/tunnckoCore/stringify-github-short-urls/blob/master/license.md"
-  },
-  "dependencies": {
-    "filter-object": "^1.1.0",
-    "stringify-github-short-url": "^1.0.0"
-  },
-  "devDependencies": {
-    "istanbul-harmony": "^0.3.1",
-    "mocha": "*",
-    "mocha-lcov-reporter": "^0.0.1"
-  }
+    "user",
+    "util"
+  ]
 }
